@@ -102,7 +102,7 @@ func init() {
 		{
 			name:     "TestProcessLogInvalidValue",
 			input:    "testdata/.log-with-invalid-value",
-			expected: nil, // This test should still pass.
+			expected: nil, // This test should still pass (warning for invalid value will be logged instead).
 		},
 		{
 			name:     "TestProcessLogNoError",

@@ -87,6 +87,8 @@ func (ss *sensorService) ProcessLog(filepath string) (err error) {
 			} else {
 				sensor.Values = append(sensor.Values, value)
 			}
+		} else {
+			ss.l.Warn("invalid row encountered! Final evaluation might not be accurate. The row will be skipped", zap.String("data", scanner.Text()))
 		}
 	}
 	// One last sensor print after it reaches EOF.

@@ -5,8 +5,9 @@ import (
 )
 
 const (
-	okValue      = "OK"
-	discardValue = "discard"
+	allowedDeviationPercentage = 1
+	okValue                    = "OK"
+	discardValue               = "discard"
 )
 
 type humidity struct {
@@ -14,7 +15,7 @@ type humidity struct {
 }
 
 func (h *humidity) DetermineState(values []float64) string {
-	if output := sensor_math.AreValuesWithinPercentageOfReferenceValue(h.humidity, 1, values); output {
+	if output := sensor_math.AreValuesWithinPercentageOfReferenceValue(h.humidity, allowedDeviationPercentage, values); output {
 		return okValue
 	}
 	return discardValue

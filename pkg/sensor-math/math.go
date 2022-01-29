@@ -17,7 +17,7 @@ func CalculateMeanAndStdDev(values []float64) (mean, sd float64) {
 		return 0, 0
 	}
 	if numberOfValues = float64(len(values)); numberOfValues == 1.0 {
-		return values[0], values[0]
+		return values[0], 0
 	}
 	mean = sum / numberOfValues
 
@@ -33,9 +33,9 @@ func CalculateMeanAndStdDev(values []float64) (mean, sd float64) {
 }
 
 func AreValuesWithinPercentageOfReferenceValue(referenceValue, percentage float64, values []float64) bool {
-	deviationValue := (percentage / 100) * referenceValue
+	allowedDeviationValue := (percentage / 100) * referenceValue
 	for _, value := range values {
-		if math.Abs(referenceValue-value) > deviationValue {
+		if math.Abs(referenceValue-value) > allowedDeviationValue {
 			return false
 		}
 	}
