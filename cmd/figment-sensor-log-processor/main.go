@@ -35,5 +35,7 @@ func main() {
 
 	// Init service.
 	sensorService = service.NewSensorService(l)
-	sensorService.ProcessLog(conf.LogFilePath)
+	if err = sensorService.ProcessLog(conf.LogFilePath); err != nil {
+		l.Error("processing log failed", zap.Error(err))
+	}
 }
