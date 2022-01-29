@@ -80,7 +80,6 @@ func (ss *sensorService) ProcessLog(filepath string) (err error) {
 			}
 			sensorType, name = data[0], data[1]
 			sensor = sensors.NewSensor(sensorType, name, temp, humidity)
-			continue
 		} else if lineWordCount == readingLineWordCount {
 			if value, err := strconv.ParseFloat(data[2], 64); err != nil {
 				ss.l.Error("failed to parse value", zap.Error(err))
