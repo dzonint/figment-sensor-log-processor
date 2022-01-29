@@ -20,13 +20,13 @@ func init() {
 			expected:    preciseValue,
 		},
 		{
-			name:        "TestDetermineStateHumidityVeryPrecise",
+			name:        "TestDetermineStateThermometerVeryPrecise",
 			thermometer: thermometer{70},
 			input:       []float64{68.5, 71.3, 73.5, 65.8},
 			expected:    veryPreciseValue,
 		},
 		{
-			name:        "TestDetermineStateHumidityUltraPrecise",
+			name:        "TestDetermineStateThermometerUltraPrecise",
 			thermometer: thermometer{70},
 			input:       []float64{69.5, 70.1, 71.3, 71.5, 69.8},
 			expected:    ultraPreciseValue,
