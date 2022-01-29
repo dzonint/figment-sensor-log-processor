@@ -16,7 +16,6 @@ type Config struct {
 // and unmarshal it to Config struct
 func NewConfigFromYaml(path string) (Config, error) {
 	handle, err := os.Open(path)
-
 	if err != nil {
 		return Config{}, err
 	}
