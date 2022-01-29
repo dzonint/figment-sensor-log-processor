@@ -9,10 +9,7 @@ import (
 )
 
 type Config struct {
-	LogFilePath         string              `yaml:"LogFilePath"`
-}
-
-type SensorServiceConfig struct {
+	LogFilePath string `yaml:"LogFilePath"`
 }
 
 // NewConfigFromYaml Will try opening file defined in the path parameter
