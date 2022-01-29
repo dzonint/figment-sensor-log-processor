@@ -102,7 +102,7 @@ func init() {
 
 	areValuesWithinPercentageOfReferenceValueTests = []areValuesWithinPercentageOfReferenceValueTest{
 		{
-			name: "areValuesWithinPercentageOfReferenceValueTestZeroPercentTrue",
+			name: "TestAreValuesWithinPercentageOfReferenceValueZeroPercentTrue",
 			input: struct {
 				referenceValue float64
 				percentage     float64
@@ -111,7 +111,7 @@ func init() {
 			expected: true,
 		},
 		{
-			name: "areValuesWithinPercentageOfReferenceValueTestZeroPercentFalse",
+			name: "TestAreValuesWithinPercentageOfReferenceValueZeroPercentFalse",
 			input: struct {
 				referenceValue float64
 				percentage     float64
@@ -120,7 +120,7 @@ func init() {
 			expected: false,
 		},
 		{
-			name: "areValuesWithinPercentageOfReferenceValueTestTrue",
+			name: "TestAreValuesWithinPercentageOfReferenceValueTestTrue",
 			input: struct {
 				referenceValue float64
 				percentage     float64
@@ -129,7 +129,7 @@ func init() {
 			expected: true,
 		},
 		{
-			name: "areValuesWithinPercentageOfReferenceValueTestFalse",
+			name: "TestAreValuesWithinPercentageOfReferenceValueFalse",
 			input: struct {
 				referenceValue float64
 				percentage     float64
