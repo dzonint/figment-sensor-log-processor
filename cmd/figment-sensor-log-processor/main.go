@@ -4,26 +4,20 @@ import (
 	"figment-sensor-log-processor/pkg/service"
 	"go.uber.org/zap"
 	"log"
-	"path/filepath"
-	"runtime"
-	"strings"
+	"os"
 )
 
-func getProjectRootDirectoryPath() string {
-	_, b, _, _ := runtime.Caller(0)
-	basepath := filepath.Dir(b)
-	position := strings.LastIndex(basepath, "pkg")
-	return basepath[:position]
-}
-
 func main() {
+	const configPath = "./config/config.yaml"
+
 	var (
 		l             *zap.Logger
 		err           error
 		sensorService service.SensorService
+		conf          Config
 	)
 
-	// Logger.
+	// Init logger.
 	l, err = zap.NewDevelopment()
 	if err != nil {
 		log.Fatal()
@@ -31,7 +25,15 @@ func main() {
 	defer l.Sync()
 	l.Info("Logger initialized...")
 
-	// Service.
+	// Init config.
+	conf, err = NewConfigFromYaml(configPath)
+	if err != nil {
+		l.Error("Failed initializing config", zap.Error(err))
+		os.Exit(1)
+	}
+	l.Info("Config initialized...")
+
+	// Init service.
 	sensorService = service.NewSensorService(l)
-	sensorService.ProcessLog(getProjectRootDirectoryPath() + ".log")
+	sensorService.ProcessLog(conf.LogFilePath)
 }
