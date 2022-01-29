@@ -1,8 +1,6 @@
 FROM golang:1.16-alpine
 ENV CGO_ENABLED=0
 ENV GO111MODULE=on
-# Alpine images do not have git so we install it.
-RUN apk add git
 ## We create an /app directory within our
 ## image that will hold our application source
 ## files
