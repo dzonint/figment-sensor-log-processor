@@ -14,11 +14,11 @@ const (
 	preciseValue                      = "precise"
 )
 
-type Thermometer struct {
+type thermometer struct {
 	temperature float64
 }
 
-func (t *Thermometer) DetermineState(values []float64) string {
+func (t *thermometer) DetermineState(values []float64) string {
 	mean, sd := sensor_math.CalculateMeanAndStdDev(values)
 	if math.Abs(t.temperature-mean) <= meanDeviationThreshold && sd < stdDeviationThresholdUltraPrecise {
 		return ultraPreciseValue

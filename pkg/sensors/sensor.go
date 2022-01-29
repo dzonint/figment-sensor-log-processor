@@ -18,10 +18,10 @@ type Sensor struct {
 	Values []float64
 }
 
-func NewSensor(sensorType string, name string, temperature float64, humidity float64) *Sensor {
-	var ds DynamicSensor = &Thermometer{temperature}
+func NewSensor(sensorType string, name string, temperature float64, humidityPercentage float64) *Sensor {
+	var ds DynamicSensor = &thermometer{temperature}
 	if sensorType == humidityKeyword {
-		ds = &Humidity{humidity}
+		ds = &humidity{humidityPercentage}
 	}
 
 	return &Sensor{
