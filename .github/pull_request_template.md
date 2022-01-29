@@ -6,7 +6,7 @@
 
 ## Related issues
 
-<!-- Reference one issue per list item from Shortcut -->
+<!-- Reference one issue per list item -->
 
 - Fixes:
 
