@@ -83,7 +83,7 @@ func init() {
 			}{mean: 23.15, sd: 14.21},
 		},
 		{
-			name:  "TestCalculateMeanAndStdDevNegativeNumberTest2",
+			name:  "TestCalculateMeanAndStdDevTest2",
 			input: []float64{72.4, 76.0, 79.1, 75.6, 71.2, 71.4, 69.2, 65.2, 62.8, 61.4, 64.0, 67.5, 69.4},
 			expected: struct {
 				mean float64
@@ -91,7 +91,7 @@ func init() {
 			}{mean: 69.63, sd: 5.4},
 		},
 		{
-			name:  "TestCalculateMeanAndStdDevNegativeNumberTest3",
+			name:  "TestCalculateMeanAndStdDevTest3",
 			input: []float64{69.5, 70.1, 71.3, 71.5, 69.8},
 			expected: struct {
 				mean float64
