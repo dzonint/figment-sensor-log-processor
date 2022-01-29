@@ -99,7 +99,7 @@ func (ss *sensorService) ProcessLog(filepath string) (err error) {
 	return nil
 }
 
-// DetermineTemperatureAndHumidity takes the first line of .log and determines reference temperature and humidity.
+// determineTemperatureAndHumidity takes the first line of .log and determines reference temperature and humidity.
 // Example: 'reference 75.0 45.0'
 func (ss *sensorService) determineTemperatureAndHumidity(line string) (temp float64, humidity float64, err error) {
 	data := strings.Split(line, stringSeparator)
