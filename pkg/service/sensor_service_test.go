@@ -105,6 +105,11 @@ func init() {
 			expected: nil, // This test should still pass (warning for invalid value will be logged instead).
 		},
 		{
+			name:     "TestProcessLogInvalidSensorType",
+			input:    "testdata/.log-with-invalid-sensor-type",
+			expected: nil, // This test should still pass (warning for invalid sensor creation will be logged instead and sensor will be skipped).
+		},
+		{
 			name:     "TestProcessLogNoError",
 			input:    "testdata/.log",
 			expected: nil,

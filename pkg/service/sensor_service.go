@@ -71,28 +71,42 @@ func (ss *sensorService) ProcessLog(filepath string) (err error) {
 
 	var sensor *sensors.Sensor
 	var sensorType, name string
+	var sensorCreationErrorOccurred bool
 	for scanner.Scan() {
 		data := strings.Split(scanner.Text(), stringSeparator)
 		lineWordCount := len(data)
 		if lineWordCount == sensorLineWordCount {
-			if sensorType != "" { // This means that non-first sensor is encountered so we print the current sensor's state.
+			if sensorType != "" && !sensorCreationErrorOccurred { // This means that non-first sensor is encountered so we print the current sensor's state.
 				sensor.PrintState()
 			}
 			sensorType, name = data[0], data[1]
-			sensor = sensors.NewSensor(sensorType, name, temp, humidity)
+			sensor, err = sensors.NewSensor(sensorType, name, temp, humidity)
+			if err != nil {
+				ss.l.Error("failed to create new sensor", zap.Error(err), zap.String("data", scanner.Text()))
+				ss.l.Warn("an error creating new sensor occurred! Make sure .log file is formatted properly. Evaluation for this sensor will be skipped")
+				sensorCreationErrorOccurred = true
+				continue
+			}
+			sensorCreationErrorOccurred = false
 		} else if lineWordCount == readingLineWordCount {
-			if value, err := strconv.ParseFloat(data[2], 64); err != nil {
-				ss.l.Error("failed to parse value", zap.Error(err))
-				ss.l.Warn("invalid value encountered! Final evaluation might not be accurate", zap.String("data", scanner.Text()))
-			} else {
-				sensor.Values = append(sensor.Values, value)
+			if !sensorCreationErrorOccurred {
+				if value, err := strconv.ParseFloat(data[2], 64); err != nil {
+					ss.l.Error("failed to parse value", zap.Error(err))
+					ss.l.Warn("invalid value encountered! Final evaluation might not be accurate", zap.String("data", scanner.Text()))
+				} else {
+					sensor.Values = append(sensor.Values, value)
+				}
 			}
 		} else {
-			ss.l.Warn("invalid row encountered! Final evaluation might not be accurate. The row will be skipped", zap.String("data", scanner.Text()))
+			if !sensorCreationErrorOccurred {
+				ss.l.Warn("invalid row encountered! Final evaluation might not be accurate. The row will be skipped", zap.String("data", scanner.Text()))
+			}
 		}
 	}
 	// One last sensor print after it reaches EOF.
-	sensor.PrintState()
+	if !sensorCreationErrorOccurred {
+		sensor.PrintState()
+	}
 
 	if err = scanner.Err(); err != nil {
 		ss.l.Error(scannerError.Error(), zap.Error(err))
