@@ -78,14 +78,6 @@ func init() {
 				err    error
 			}{&humidity{}, nil},
 		},
-		{
-			name:  "TestDetermineSensorTypeUndefined",
-			input: "undefined",
-			expected: struct {
-				sensor DynamicSensor
-				err    error
-			}{nil, undefinedSensorTypeError},
-		},
 	}
 
 	isValidSensorTypeTests = []isValidSensorTypeTest{

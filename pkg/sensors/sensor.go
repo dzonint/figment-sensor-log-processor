@@ -47,7 +47,7 @@ func determineSensorType(sensorType string, temperature float64, humidityPercent
 		return &thermometer{temperature}, nil
 	case humidityKeyword:
 		return &humidity{humidityPercentage}, nil
-	default: // Should never reach this part.
+	default: // Should never reach this part (undefined sensor will get filtered out by isValidSensorType method).
 		return nil, undefinedSensorTypeError
 	}
 }
